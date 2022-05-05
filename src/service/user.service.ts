@@ -19,12 +19,14 @@ async function findByEmali(email: string): Promise<User> {
     return users.rows[0];
 }
 
-async function updata (id:number,user: User) {
-    
+async function deleteOne (id:number) {  
+    let sql = 'DELETE FROM users WHERY id = $1'
+    await client.query(sql,[id])
 }
 
-async function deleteOne (id:number) {
-    
+async function updata (id:number, user: User) {
+    let sql = 'UPDATE TABLE users SET name = $1 WHERE id = $2'
+    await client.query(sql, [user.name , id])
 }
 
 export default {

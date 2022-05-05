@@ -13,10 +13,14 @@ async function findAll(): Promise<Category[]> {
     return category.rows;
 }
 
-async function updata (id:number,name: Category) {
+async function deleteOne (id:number) {  
+    let sql = 'DELETE FROM category WHERY id = $1'
+    await client.query(sql,[id])
 }
 
-async function deleteOne (id:number) {
+async function updata (id:number, category: Category) {
+    let sql = 'UPDATE TABLE category SET name = $1 WHERE id = $2'
+    await client.query(sql, [category.name, id])
 }
 
 export default {
