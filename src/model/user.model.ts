@@ -1,9 +1,9 @@
 type User = {
     id:       number;
     name:     string;
-    surname:  string;
+    email:    string;  
     gender:   string;
-    email:    string;
+    surname:  string;
     possword: string;
 };
 

@@ -1,6 +1,21 @@
 import Product from "../model/product.model";
 import client from "./client";
 
+async function addProducts(product:Product) {
+  let sql = `
+  INSERT INTO product(name, image, description, brand_id, category_id, prise)
+  VALUES ($1, $2, $3, $4, $5, $6)`
+
+  await client.query(sql,[
+    product.name,
+    product.image,
+    product.description,
+    product.brand.id,
+    product.category.id,
+    product.price
+  ])
+}
+
 async function findAll() {
   let sql = `SELECT product.*, brand.name as brand_name, category.name as category_name	
                FROM product
@@ -69,6 +84,7 @@ async function updata (id:number, products: Product) {
 export default {
   findAll,
   findByCategory,
+  addProducts,
   deleteOne,
   updata
 };

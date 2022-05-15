@@ -1,13 +1,13 @@
 <script lang="ts">
-import { removeBrand } from "../store/brand.store"
+  import { removeBrand } from "../store/brand.store";
 
-export let id: number;  
-export let name: string;
+  export let id: number;
+  export let name: string;
 
   function remove() {
     removeBrand(id);
   }
-
+  
 </script>
 
 <div class="card w-full bg-base-200 shadow-md rounded-md">

@@ -1,19 +1,19 @@
 <script lang="ts">
-import BrandItem from "../components/BrandItem.svelte";
-//
-import { addBrand, brandStore, fetchBrands } from "../store/brand.store"
-fetchBrands()
+  import BrandItem from "../components/BrandItem.svelte";
+  //
+  import { addBrand, brandStore, fetchBrands } from "../store/brand.store";
+  fetchBrands();
 
-let nameInput: HTMLInputElement
-let modalCheck: HTMLInputElement
+  let nameInput: HTMLInputElement;
+  let modalCheck: HTMLInputElement;
 
-function create () {
-  modalCheck.checked = false
+  function create() {
+    modalCheck.checked = false;
 
-  let name = nameInput.value
-  addBrand(name)
-}
-
+    let name = nameInput.value;
+    addBrand(name);
+  }
+  
 </script>
 
 <main class="container mx-auto p-6">
@@ -25,18 +25,28 @@ function create () {
   <div class="grid grid-cols-4 gap-3 mt-10">
     <!--  -->
     {#each $brandStore as brand}
-      <BrandItem id={brand.id} name={brand.name}/>
+      <BrandItem id={brand.id} name={brand.name} />
     {/each}
     <!--  -->
   </div>
 
-  <input bind:this={modalCheck} type="checkbox" id="my-modal" class="modal-toggle">
-  
+  <input
+    bind:this={modalCheck}
+    type="checkbox"
+    id="my-modal"
+    class="modal-toggle"
+  />
+
   <div class="modal">
     <div class="modal-box">
-      <h3 class="font-bold text-2xl">Create brand </h3>
+      <h3 class="font-bold text-2xl">Create brand</h3>
       <div class="flex flex-col gap-2 mt-4">
-        <input bind:this={nameInput} type="text" placeholder="Name" class="input input-bordered w-full">        
+        <input
+          bind:this={nameInput}
+          type="text"
+          placeholder="Name"
+          class="input input-bordered w-full"
+        />
       </div>
       <div class="modal-action">
         <button on:click={create} class="btn btn-primary">Create</button>

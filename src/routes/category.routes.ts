@@ -23,7 +23,7 @@ router.delete('/:id', (req, res) => {
   categoryService.deleteOne(+req.params.id)
     .then(() => res.sendStatus(200))
     .catch(err => res.status(500).json({ message: 'Error while delete category', error: err }) )
-})
+  })
 
 router.put('/:id', (req, res) => {
   categoryService.updata(+req.params.id, categoryMapper(req.body))
@@ -32,3 +32,4 @@ router.put('/:id', (req, res) => {
 })
 
 export default router
+

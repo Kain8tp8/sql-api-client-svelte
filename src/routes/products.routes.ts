@@ -1,35 +1,39 @@
-import { Router } from "express";
-import productsMappers from "../mappers/products.mappers";
-import productService from "../service/product.service";
+import { Router } from 'express'
+import { v4 as uuid } from 'uuid'
+import multer from 'multer'
+import productsMappers from '../mappers/products.mappers'
+import productService from '../service/product.service'
+
 
 const router = Router()
 
-router.get('/', (req, res) => {
+const storage = multer.diskStorage({
+  destination:(_res,_file, cb) => cb(null, './upload'),
+  filename: (_req, _file, cb) => { cb(null, uuid() + '.png') }
+})
 
-  productService.findAll()
-    .then(products => res.json(products) )
-    .catch(err => res.status(500).json({ message: 'Error while retriving categories', error: err }) )
+const upload = multer({ storage })
 
+router.post('/', upload.single('poster'), (req, res)=>{
+
+  if(!req.file){
+    return res.sendStatus(400)
+  }
+   
+  let product = productsMappers(req.body, req.file.filename)
+
+  console.log(req.body);
+  
+
+  productService.addProducts(product)
+    .then( () => res.sendStatus(200))
+    .catch( () => res.sendStatus(500))
 })
 
 
-// router.post('/', (req, res) => {
-//   productService.create(productsMappers(req.body))
-//     .then(() => res.sendStatus(200))
-//     .catch(err => res.status(500).json({ message: 'Error while create products', error: err }) )
-// })
 
 
-router.delete('/:id', (req, res) => {
-  productService.deleteOne(+req.params.id)
-    .then(() => res.sendStatus(200))
-    .catch(err => res.status(500).json({ message: 'Error while delete products', error: err }) )
-})
 
-router.put('/:id', (req, res) => {
-  productService.updata(+req.params.id, productsMappers(req.body))
-    .then(() => res.sendStatus(200))
-    .catch(err => res.status(500).json({ message: 'Error while update products', error: err }))
-})
+
 
 export default router

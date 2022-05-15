@@ -1,5 +1,6 @@
 import express from "express"
 import cors from 'cors'
+
 import brandRoutes from "./routes/brand.routes"
 import categoryRoutes from "./routes/category.routes"
 import productsRoutes from "./routes/products.routes"
@@ -17,5 +18,5 @@ app.use('/products', productsRoutes)
 app.use('/users', userRoutes)
 
 app.listen(8009, () => {
-  console.log('Server is running on http://localhost:8009');
+  console.log('Server is running...');
 })

@@ -14,7 +14,7 @@ async function findAll(): Promise<Category[]> {
 }
 
 async function deleteOne (id:number) {  
-    let sql = 'DELETE FROM category WHERY id = $1'
+    let sql = 'DELETE FROM category WHERE id=$1'
     await client.query(sql,[id])
 }
 
